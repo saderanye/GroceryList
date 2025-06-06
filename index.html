@@ -37,15 +37,50 @@
     </div>
 
     <script>
-        const itemInput = document.getElementById('itemName');
-        const categorySelect = documentElementById('categories');
-        const addItemButton = document.getElementById('addItem');
-        const groceryList = document.getElementById('groceryList');
+const itemInput = document.getElementById('itemName');
+const categorySelect = document.getElementById('categories');
+const addItemButton = document.getElementById('addItem');
+const groceryList = document.getElementById('groceryList');
 
-        let items = []; //  This will hold the grocery items
-        
+let items = [];
 
+addItemButton.addEventListener('click', function () {
+    const name = itemInput.value;
+    const category = categorySelect.value;
 
+    if (!name || !category) {
+        alert("Please enter an item and choose a category");
+        return;
+    }
+
+    const groceryItem = {
+        name: name,
+        category: category
+    };
+
+    items.push(groceryItem);
+
+    itemInput.value = '';
+    categorySelect.selectedIndex = 0;
+
+    renderList();
+});
+
+function renderList() {
+    groceryList.innerHTML = '';
+
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        li.innerHTML = `
+            <span>${item.name}</span>
+            <span class="badge bg-secondary">${item.category}</span>
+        `;
+
+        groceryList.appendChild(li);
+    });
+}
 
 
 
